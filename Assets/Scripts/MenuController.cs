@@ -10,7 +10,7 @@ public class MenuController : MonoBehaviour
     public GameObject panel;
     public GameObject qPanel;
     public GameObject bg;
-    public TextMeshProUGUI questionText;
+    public TMP_Text questionText;
 
     // Simple scene changing function
     public void SceneSwap(string sceneName)
@@ -35,7 +35,7 @@ public class MenuController : MonoBehaviour
         // Note: if category is MusicalMatchup or UnskippableCutscene, check ID to load correct sound player
         Debug.Log(q.category);
         //panel.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
-        // questionText = transform.gameObject.GetComponent<TextMeshProUGUI>();
+        questionText = transform.gameObject.GetComponent<TMP_Text>();
         questionText.text = q.description;
         //StoreInPanel(q.description);
     }
