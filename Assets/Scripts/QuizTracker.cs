@@ -15,7 +15,6 @@ public class QuizTracker : MonoBehaviour
         public string a2;
         public string a3;
         public string a4;
-        // public bool used;
     }
 
     [SerializeField] string filepath;
@@ -57,7 +56,6 @@ public class QuizTracker : MonoBehaviour
                 question.a2 = data_parsed[4];
                 question.a3 = data_parsed[5];
                 question.a4 = data_parsed[6];
-                // question.used = false;
 
                 QuestionDict.Add(question.id, question);
                 available.Add(question.id);
@@ -75,7 +73,7 @@ public class QuizTracker : MonoBehaviour
     {
         if (available.Count == 0)
         {
-            Debug.LogWarning("No new questions remain!");
+            Debug.LogWarning("No new questions remain! Returning an empty question with id \"END\".");
             Question dummy = new Question();
             dummy.id = "END";
             return dummy;
@@ -89,8 +87,7 @@ public class QuizTracker : MonoBehaviour
         Debug.Log($"Returning Question with id {rand_name}");
         return q;
     }
-    
-    // Start is called before the first frame update
+
     void Start()
     {
         if (instance != null) Destroy(gameObject);
@@ -99,14 +96,7 @@ public class QuizTracker : MonoBehaviour
             instance = this;
             ReadStuff();
             DontDestroyOnLoad(gameObject);
-            // Debug.Log(QuestionDict["dummy"].a4);
         }
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
