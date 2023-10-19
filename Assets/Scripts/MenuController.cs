@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using UnityEngine.UI;
 
-/* Notes to future Caleb:
- * 
- *
- *
- * 
- */
 public class MenuController : MonoBehaviour
 {
+    public GameObject panel;
+    public GameObject qPanel;
+    public GameObject bg;
+    public TextMeshProUGUI questionText;
+
     // Simple scene changing function
     public void SceneSwap(string sceneName)
     {
@@ -25,15 +26,52 @@ public class MenuController : MonoBehaviour
         Debug.Log("Quit the application.");
     }
 
-    public void OpenTitleCard(string titleCard)
+    public void OpenTitleCard()
+    { 
+        QuizTracker.Question q = QuizTracker.GetRandomQuestion();
+        panel = GameObject.Find(q.category);
+        panel.transform.GetChild(0).gameObject.SetActive(true);
+        bg.SetActive(false);
+        // Note: if category is MusicalMatchup or UnskippableCutscene, check ID to load correct sound player
+        Debug.Log(q.category);
+        //panel.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+        questionText = transform.gameObject.GetComponent<TextMeshProUGUI>();
+        questionText.text = q.description;
+        //StoreInPanel(q.description);
+    }
+
+    // private void StoreInPanel(string qt)
+    // {
+    //     questionText.text = qt;
+    // }
+
+    public void ShowQuestion()
     {
-        
+        qPanel.SetActive(true);
+    }
+
+    public void HideQuestion()
+    {
+        qPanel.SetActive(false);
+    }
+
+    public void ChallengeSuccess()
+    {
+        panel.SetActive(false);
+        Destroy(panel);
+        bg.SetActive(true);
+    }
+
+    public void ChallengeFail()
+    {
+        // if time, add a "FAILURE" card
+        SceneManager.LoadScene("TitleScreen");
     }
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        bg = GameObject.Find("Background");
     }
 
     // Update is called once per frame
