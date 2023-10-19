@@ -67,6 +67,8 @@ public class QuizTracker : MonoBehaviour
             }
 
         }
+
+        Debug.Log($"Loaded tsv file with {available.Count} entries.");
     }
 
     public static Question GetRandomQuestion()
@@ -84,6 +86,7 @@ public class QuizTracker : MonoBehaviour
 
         available.Remove(rand_name);
 
+        Debug.Log($"Returning Question with id {rand_name}");
         return q;
     }
     
